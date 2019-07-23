@@ -9,7 +9,7 @@ import { tbnNavbarAnimations } from './navbar-animation';
 @Component({
   selector: 'tbn-navbar-collapse',
   template: `
-      <ng-content></ng-content>
+    <ng-content></ng-content>
   `,
   styles: [
     `
@@ -18,7 +18,7 @@ import { tbnNavbarAnimations } from './navbar-animation';
       }
     `
   ],
-  host:{
+  host: {
     class: 'navbar-collapse',
     '[class.collapse]': '!isTransitioning',
     '[class.show]': '!isCollapsed && !isTransitioning',

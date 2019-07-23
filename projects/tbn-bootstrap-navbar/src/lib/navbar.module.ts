@@ -1,15 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TbnNavbarCollapseComponent } from './navbar-collapse.component';
-import { CommonModule } from '@angular/common';
-import { TbnNavbarComponent } from './navbar.component';
-
-
+import { TbnNavbarDirective } from './navbar.directive';
 
 @NgModule({
-  declarations: [TbnNavbarCollapseComponent, TbnNavbarComponent],
-  imports: [
-    CommonModule
-  ],
-  exports: [TbnNavbarCollapseComponent, TbnNavbarComponent]
+  declarations: [TbnNavbarCollapseComponent, TbnNavbarDirective],
+  imports: [CommonModule],
+  exports: [TbnNavbarCollapseComponent, TbnNavbarDirective]
 })
-export class TbnNavbarModule { }
+export class TbnNavbarModule {}

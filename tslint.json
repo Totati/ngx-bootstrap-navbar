@@ -66,6 +66,26 @@
       true,
       "as-needed"
     ],
+    "no-host-decorator-in-concrete": [
+      true,
+      "HostBinding",
+      "HostListener"
+    ],
+    "member-naming": [true, {
+      "private": "^_"
+    }],
+    "validate-decorators": [true, {
+      "Component": {
+        "!host": "\\[class\\]",
+        "!preserveWhitespaces": ".*",
+        "!styles": ".*",
+        "changeDetection": "\\.OnPush$",
+        "encapsulation": "\\.None$",
+        "moduleId": "^module\\.id$"
+      },
+      "Directive": {
+        "!host": "\\[class\\]"
+      },
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [
@@ -74,7 +94,6 @@
     ],
     "trailing-comma": false,
     "no-conflicting-lifecycle": true,
-    "no-host-metadata-property": true,
     "no-input-rename": true,
     "no-inputs-metadata-property": true,
     "no-output-native": true,

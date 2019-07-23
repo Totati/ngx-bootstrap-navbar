@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TbnNavbarComponent } from './navbar.component';
+import { TbnNavbarDirective } from './navbar.directive';
 
 describe('NavbarComponent', () => {
-  let component: TbnNavbarComponent;
-  let fixture: ComponentFixture<TbnNavbarComponent>;
+  let component: TbnNavbarDirective;
+  let fixture: ComponentFixture<TbnNavbarDirective>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TbnNavbarComponent ]
+      declarations: [ TbnNavbarDirective ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TbnNavbarComponent);
+    fixture = TestBed.createComponent(TbnNavbarDirective);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
