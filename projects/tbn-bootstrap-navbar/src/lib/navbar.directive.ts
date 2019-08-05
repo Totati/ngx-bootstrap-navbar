@@ -17,11 +17,37 @@ import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
   }
 })
 export class TbnNavbarDirective implements AfterContentInit, OnDestroy {
-  isExpanded = true;
+  private _isExpanded = false;
+  get isExpanded() {
+    return this._isExpanded;
+  }
 
-  private _viewportSizeCache = this._viewportRuler.getViewportSize();
   private _onDestroy = new Subject<void>();
   private _update = new Subject<void>();
+
+  private isExpanded$ = merge(
+    this._viewportRuler.change(150),
+    this._update
+  ).pipe(
+    map(() => {
+      const element = this._elRef.nativeElement;
+      let overflowSize;
+      if (this.isExpanded) {
+        overflowSize = element.scrollWidth - element.offsetWidth;
+      } else {
+        const clone = element.cloneNode(true) as HTMLElement;
+        clone.classList.add('navbar-expand');
+        element.parentElement.appendChild(clone);
+        overflowSize = clone.scrollWidth - clone.offsetWidth;
+        element.parentElement.removeChild(clone);
+      }
+      if (!overflowSize) {
+        return true;
+      }
+    }),
+    distinctUntilChanged(),
+    takeUntil(this._onDestroy)
+  );
 
   constructor(
     private _viewportRuler: ViewportRuler,
@@ -29,36 +55,18 @@ export class TbnNavbarDirective implements AfterContentInit, OnDestroy {
     private _ngZone: NgZone
   ) {
     this._ngZone.runOutsideAngular(() => {
-      merge(this._viewportRuler.change(150), this._update)
-        .pipe(
-          map(() => {
-            const element = this._elRef.nativeElement;
-            let overflowSize;
-            if(this.isExpanded) {
-              overflowSize = element.scrollWidth - element.offsetWidth;
-            } else {
-              element.classList.add('navbar-expanded');
-              window.getComputedStyle(this._elRef.nativeElement);
-              overflowSize = element.scrollWidth - element.offsetWidth;
-              element.classList.remove('navbar-expanded');
-            }
-            if (!overflowSize) {
-              return true;
-            }
-          }),
-          distinctUntilChanged(),
-          takeUntil(this._onDestroy)
-        )
-        .subscribe(isExpanded => {
-          this._ngZone.run(() => {
-            this.isExpanded = isExpanded;
-          });
+      this.isExpanded$.subscribe(isExpanded => {
+        this._ngZone.run(() => {
+          this._isExpanded = isExpanded;
         });
+      });
     });
   }
 
   ngAfterContentInit() {
-    this.updateExpansion();
+    setTimeout(() => {
+      this.updateExpansion();
+    }, 0);
   }
 
   ngOnDestroy() {
