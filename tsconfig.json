@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "tbn-bootstrap-navbar": [
-        "dist/tbn-bootstrap-navbar"
+      "ngx-bootstrap-navbar": [
+        "dist/ngx-bootstrap-navbar"
       ],
-      "tbn-bootstrap-navbar/*": [
-        "dist/tbn-bootstrap-navbar/*"
+      "ngx-bootstrap-navbar/*": [
+        "dist/ngx-bootstrap-navbar/*"
       ]
     }
   },

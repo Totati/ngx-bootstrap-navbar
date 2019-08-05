@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TbnNavbarCollapseComponent } from './navbar-collapse.component';
+import { NgxNavbarCollapseComponent } from './navbar-collapse.component';
 
 describe('NgxBootstrapNavbarComponent', () => {
-  let component: TbnNavbarCollapseComponent;
-  let fixture: ComponentFixture<TbnNavbarCollapseComponent>;
+  let component: NgxNavbarCollapseComponent;
+  let fixture: ComponentFixture<NgxNavbarCollapseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TbnNavbarCollapseComponent ]
+      declarations: [ NgxNavbarCollapseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TbnNavbarCollapseComponent);
+    fixture = TestBed.createComponent(NgxNavbarCollapseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

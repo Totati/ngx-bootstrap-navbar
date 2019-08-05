@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { TbnNavbarModule } from 'tbn-bootstrap-navbar';
+import { NgxNavbarModule } from 'ngx-bootstrap-navbar';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,7 @@ import { TbnNavbarModule } from 'tbn-bootstrap-navbar';
   ],
   imports: [
     BrowserModule,
-    TbnNavbarModule,
+    NgxNavbarModule,
     BrowserAnimationsModule
   ],
   providers: [],

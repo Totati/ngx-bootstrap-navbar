@@ -4,10 +4,10 @@ import {
   Component,
   ViewEncapsulation
 } from '@angular/core';
-import { tbnNavbarAnimations } from './navbar-animation';
+import { ngxNavbarAnimations } from './navbar-animation';
 
 @Component({
-  selector: 'tbn-navbar-collapse',
+  selector: 'ngx-navbar-collapse',
   template: `
     <ng-content></ng-content>
   `,
@@ -28,10 +28,10 @@ import { tbnNavbarAnimations } from './navbar-animation';
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [tbnNavbarAnimations.navbarSlide],
-  exportAs: 'tbnNavbarCollapse'
+  animations: [ngxNavbarAnimations.navbarSlide],
+  exportAs: 'ngxNavbarCollapse'
 })
-export class TbnNavbarCollapseComponent {
+export class NgxNavbarCollapseComponent {
   public isCollapsed = true;
   public isTransitioning = false;
 

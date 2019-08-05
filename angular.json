@@ -117,33 +117,33 @@
         }
       }
     },
-    "tbn-bootstrap-navbar": {
+    "ngx-bootstrap-navbar": {
       "projectType": "library",
-      "root": "projects/tbn-bootstrap-navbar",
-      "sourceRoot": "projects/tbn-bootstrap-navbar/src",
-      "prefix": "tbn",
+      "root": "projects/ngx-bootstrap-navbar",
+      "sourceRoot": "projects/ngx-bootstrap-navbar/src",
+      "prefix": "ngx",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/tbn-bootstrap-navbar/tsconfig.lib.json",
-            "project": "projects/tbn-bootstrap-navbar/ng-package.json"
+            "tsConfig": "projects/ngx-bootstrap-navbar/tsconfig.lib.json",
+            "project": "projects/ngx-bootstrap-navbar/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/tbn-bootstrap-navbar/src/test.ts",
-            "tsConfig": "projects/tbn-bootstrap-navbar/tsconfig.spec.json",
-            "karmaConfig": "projects/tbn-bootstrap-navbar/karma.conf.js"
+            "main": "projects/ngx-bootstrap-navbar/src/test.ts",
+            "tsConfig": "projects/ngx-bootstrap-navbar/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-bootstrap-navbar/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/tbn-bootstrap-navbar/tsconfig.lib.json",
-              "projects/tbn-bootstrap-navbar/tsconfig.spec.json"
+              "projects/ngx-bootstrap-navbar/tsconfig.lib.json",
+              "projects/ngx-bootstrap-navbar/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

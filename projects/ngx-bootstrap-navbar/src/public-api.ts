@@ -1,5 +1,5 @@
 /*
- * Public API Surface of tbn-bootstrap-navbar
+ * Public API Surface of ngx-bootstrap-navbar
  */
 
 export * from './lib/navbar.directive';

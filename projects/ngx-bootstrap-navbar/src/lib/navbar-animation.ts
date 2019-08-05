@@ -2,7 +2,7 @@ import { animate, AnimationTriggerMetadata, style, transition, trigger } from '@
 /** Time and timing curve for expansion panel animations. */
 export const NAVBAR_ANIMATION_TIMING = '300ms ease-out';
 
-export const tbnNavbarAnimations: {
+export const ngxNavbarAnimations: {
   readonly navbarSlide: AnimationTriggerMetadata;
 } = {
   /** Animation that rotates the indicator arrow. */

@@ -10,13 +10,13 @@ import { merge, Subject } from 'rxjs';
 import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 
 @Directive({
-  selector: '[tbnNavbar]',
+  selector: '[ngxNavbar]',
   host: {
     class: 'navbar',
     '[class.navbar-expand]': 'isExpanded'
   }
 })
-export class TbnNavbarDirective implements AfterContentInit, OnDestroy {
+export class NgxNavbarDirective implements AfterContentInit, OnDestroy {
   private _isExpanded = false;
   get isExpanded() {
     return this._isExpanded;
