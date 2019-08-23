@@ -13,13 +13,13 @@ import { ngxNavbarAnimations } from './navbar-animation';
   `,
   styles: [
     `
-      .collapsing {
+      .ngx-navbar-collapse.collapsing {
         height: auto;
       }
     `
   ],
   host: {
-    class: 'navbar-collapse',
+    class: 'navbar-collapse ngx-navbar-collapse',
     '[class.collapse]': '!isTransitioning',
     '[class.show]': '!isCollapsed && !isTransitioning',
     '[class.collapsing]': 'isTransitioning',

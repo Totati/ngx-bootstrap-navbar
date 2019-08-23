@@ -4,19 +4,20 @@ import {
   Directive,
   ElementRef,
   NgZone,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 
 @Directive({
-  selector: '[ngxNavbar]',
+  selector: '[ngxNavbarDynamicExpand]',
   host: {
-    class: 'navbar',
+    class: 'navbar text-nowrap',
     '[class.navbar-expand]': 'isExpanded'
   }
 })
-export class NgxNavbarDirective implements AfterContentInit, OnDestroy {
+export class NgxNavbarDynamicExpandDirective implements AfterContentInit, OnDestroy {
   private _isExpanded = false;
   get isExpanded() {
     return this._isExpanded;
@@ -52,12 +53,14 @@ export class NgxNavbarDirective implements AfterContentInit, OnDestroy {
   constructor(
     private _viewportRuler: ViewportRuler,
     private _elRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
+    private _cdRef: ChangeDetectorRef
   ) {
     this._ngZone.runOutsideAngular(() => {
       this.isExpanded$.subscribe(isExpanded => {
         this._ngZone.run(() => {
           this._isExpanded = isExpanded;
+          this._cdRef.markForCheck();
         });
       });
     });

@@ -1,27 +1,66 @@
-# Demo
+# NgxBootstrapNavbar
+
+[![npm version](https://img.shields.io/npm/v/ngx-bootstrap-navbar.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bootstrap-navbar)
+[![npm downloads total](https://img.shields.io/npm/dt/ngx-bootstrap-navbar.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bootstrap-navbar)
+[![npm downloads monthly](https://img.shields.io/npm/dm/ngx-bootstrap-navbar.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bootstrap-navbar)
+
+## What does it do?
+Native Angular component and directive for [Bootstrap Navbar](https://getbootstrap.com/docs/4.3/components/navbar/) component. Uses bootstrap classes and Angular Animations for changing the navbars collapse
+
+## Try it
+See it in action at [https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar](https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar)
+
+## How to use it?
+Install `ngx-bootstrap-navbar` in your project:
+```
+npm install ngx-bootstrap-navbar
+```
+
+Import the `NgxNavbarModule` in your `app.module.ts`:
+```typescript
+import { NgxNavbarModule } from 'ngx-bootstrap-navbar';
+
+@NgModule({
+  imports: [
+    BrowserAnimationsModule,
+    NgxNavbarModule
+  ],
+})
+export class AppModule {}
+```
+
+Use the `ngx-navbar-collapse` component as the container of the .navbar-nav, it applies the basic bootstrap classes too.
+If you want to dynamically detect that the navbar fits and can be expanded use the `ngxNavbarDynamicExpand` directive on the navbar. It applies the .navbar and .text-nowrap classes.
+```html
+<nav ngxNavbar class="navbar-light bg-light">
+  <button class="navbar-toggler" type="button" (click)="collapse.toggle()">
+    ....
+  </button>
+  <ngx-navbar-collapse #collapse="ngxNavbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      ...
+    </ul>
+  </ngx-navbar-collapse>
+</nav>
+
+```
+
+
+### Compatibility
+
+* `@angular/core`: `^7.0.0 || ^8.0.0`,
+* `bootstrap`: `^4.0.0`,
+* `rxjs`: `^5.5.2 || ^6.0.0`
+
+## Development
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
-## Development server
+### Library Build / NPM Package
+Run `ng build ngx-bootstrap-navbar --watch` to build the library and generate an NPM package. 
+The build artifacts will be stored in the `dist/ngx-bootstrap-navbar` folder.
+
+### Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

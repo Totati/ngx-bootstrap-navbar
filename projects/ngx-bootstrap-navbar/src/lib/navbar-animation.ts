@@ -1,11 +1,10 @@
 import { animate, AnimationTriggerMetadata, style, transition, trigger } from '@angular/animations';
-/** Time and timing curve for expansion panel animations. */
+/** Time and timing curve for navbar animations. */
 export const NAVBAR_ANIMATION_TIMING = '300ms ease-out';
 
 export const ngxNavbarAnimations: {
   readonly navbarSlide: AnimationTriggerMetadata;
 } = {
-  /** Animation that rotates the indicator arrow. */
   navbarSlide: trigger('slideState', [
     transition('false => true', [
       style({

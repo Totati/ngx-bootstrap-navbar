@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NgxNavbarCollapseComponent } from './navbar-collapse.component';
 
-describe('NgxBootstrapNavbarComponent', () => {
+describe('NgxNavbarComponent', () => {
   let component: NgxNavbarCollapseComponent;
   let fixture: ComponentFixture<NgxNavbarCollapseComponent>;
 
