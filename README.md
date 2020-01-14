@@ -32,7 +32,7 @@ export class AppModule {}
 Use the `ngx-navbar-collapse` component as the container of the .navbar-nav, it applies the basic bootstrap classes too.
 If you want to dynamically detect that the navbar fits and can be expanded use the `ngxNavbarDynamicExpand` directive on the navbar. It applies the .navbar and .text-nowrap classes.
 ```html
-<nav ngxNavbar class="navbar-light bg-light">
+<nav ngxNavbarDynamicExpand class="navbar-light bg-light">
   <button class="navbar-toggler" type="button" (click)="collapse.toggle()">
     ....
   </button>

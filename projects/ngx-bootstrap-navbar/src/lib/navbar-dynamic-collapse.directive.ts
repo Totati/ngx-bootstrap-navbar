@@ -5,19 +5,20 @@ import {
   ElementRef,
   NgZone,
   OnDestroy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 import { merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, takeUntil, filter } from 'rxjs/operators';
 
 @Directive({
   selector: '[ngxNavbarDynamicExpand]',
   host: {
     class: 'navbar text-nowrap',
-    '[class.navbar-expand]': 'isExpanded'
-  }
+    '[class.navbar-expand]': 'isExpanded',
+  },
 })
-export class NgxNavbarDynamicExpandDirective implements AfterContentInit, OnDestroy {
+export class NgxNavbarDynamicExpandDirective
+  implements AfterContentInit, OnDestroy {
   private _isExpanded = false;
   get isExpanded() {
     return this._isExpanded;
@@ -30,6 +31,7 @@ export class NgxNavbarDynamicExpandDirective implements AfterContentInit, OnDest
     this._viewportRuler.change(150),
     this._update
   ).pipe(
+    filter(() => checkBootstrapStylesAreLoaded(this._elRef.nativeElement)),
     map(() => {
       const element = this._elRef.nativeElement;
       let overflowSize;
@@ -57,7 +59,7 @@ export class NgxNavbarDynamicExpandDirective implements AfterContentInit, OnDest
     private _cdRef: ChangeDetectorRef
   ) {
     this._ngZone.runOutsideAngular(() => {
-      this.isExpanded$.subscribe(isExpanded => {
+      this.isExpanded$.subscribe((isExpanded) => {
         this._ngZone.run(() => {
           this._isExpanded = isExpanded;
           this._cdRef.markForCheck();
@@ -67,9 +69,17 @@ export class NgxNavbarDynamicExpandDirective implements AfterContentInit, OnDest
   }
 
   ngAfterContentInit() {
-    setTimeout(() => {
-      this.updateExpansion();
-    }, 0);
+    this._ngZone.runOutsideAngular(() => {
+      if (checkBootstrapStylesAreLoaded(this._elRef.nativeElement)) {
+        setTimeout(() => {
+          this.updateExpansion();
+        }, 0);
+      } else {
+        setTimeout(() => {
+          this.ngAfterContentInit();
+        }, 1000 / 60);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -81,4 +91,9 @@ export class NgxNavbarDynamicExpandDirective implements AfterContentInit, OnDest
   updateExpansion() {
     this._update.next();
   }
+}
+
+function checkBootstrapStylesAreLoaded(element: Element): boolean {
+  const computedStyle = getComputedStyle(element);
+  return computedStyle && computedStyle.whiteSpace === 'nowrap';
 }
