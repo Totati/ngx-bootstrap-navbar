@@ -22,5 +22,8 @@
     "dynamic",
     "ckd"
   ],
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "description": "Animated Angular Bootstrap navbar with optional dynamic expanding feature."
 }
