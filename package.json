@@ -3,11 +3,15 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4203",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "develop": "ng build ngx-bootstrap-navbar --watch",
+    "build:lib": "ng build ngx-bootstrap-navbar --configuration production && npm run copy-readme",
+    "copy-readme": "copyfiles ./README.md dist/ngx-bootstrap-navbar"
   },
   "private": true,
   "dependencies": {

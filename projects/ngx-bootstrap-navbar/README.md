@@ -47,6 +47,5 @@ If you want to dynamically detect that the navbar fits and can be expanded use t
 
 ### Compatibility
 
-* `@angular/core`: `^7.0.0 || ^8.0.0`,
-* `bootstrap`: `^4.0.0`,
-* `rxjs`: `^5.5.2 || ^6.0.0`
+* `@angular/core`: `^9.0.0 || ^10.0.0 || ^11.0.0`,
+* `bootstrap`: `^4.0.0 || ^5.0.0`,

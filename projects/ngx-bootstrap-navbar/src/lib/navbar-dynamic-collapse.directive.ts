@@ -1,4 +1,6 @@
+import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
+import { DOCUMENT } from '@angular/common';
 import {
   AfterContentInit,
   Directive,
@@ -6,6 +8,7 @@ import {
   NgZone,
   OnDestroy,
   ChangeDetectorRef,
+  Inject,
 } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { distinctUntilChanged, map, takeUntil, filter } from 'rxjs/operators';
@@ -18,62 +21,77 @@ import { distinctUntilChanged, map, takeUntil, filter } from 'rxjs/operators';
   },
 })
 export class NgxNavbarDynamicExpandDirective
-  implements AfterContentInit, OnDestroy {
+  implements AfterContentInit, OnDestroy
+{
+  private readonly _document: Document;
+  private readonly onDestroy$ = new Subject<void>();
+  private readonly update$ = new Subject<void>();
+  private loaded = false;
   private _isExpanded = false;
   get isExpanded() {
     return this._isExpanded;
   }
 
-  private _onDestroy = new Subject<void>();
-  private _update = new Subject<void>();
-
-  private isExpanded$ = merge(
-    this._viewportRuler.change(150),
-    this._update
-  ).pipe(
-    filter(() => checkBootstrapStylesAreLoaded(this._elRef.nativeElement)),
-    map(() => {
-      const element = this._elRef.nativeElement;
-      let overflowSize;
-      if (this.isExpanded) {
-        overflowSize = element.scrollWidth - element.offsetWidth;
-      } else {
-        const clone = element.cloneNode(true) as HTMLElement;
-        clone.classList.add('navbar-expand');
-        element.parentElement.appendChild(clone);
-        overflowSize = clone.scrollWidth - clone.offsetWidth;
-        element.parentElement.removeChild(clone);
-      }
-      if (!overflowSize) {
-        return true;
-      }
-    }),
-    distinctUntilChanged(),
-    takeUntil(this._onDestroy)
-  );
-
   constructor(
-    private _viewportRuler: ViewportRuler,
-    private _elRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone,
-    private _cdRef: ChangeDetectorRef
+    private readonly viewportRuler: ViewportRuler,
+    private readonly elRef: ElementRef<HTMLElement>,
+    private readonly ngZone: NgZone,
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly platform: Platform,
+    @Inject(DOCUMENT) document: any
   ) {
-    this._ngZone.runOutsideAngular(() => {
-      this.isExpanded$.subscribe((isExpanded) => {
-        this._ngZone.run(() => {
-          this._isExpanded = isExpanded;
-          this._cdRef.markForCheck();
+    this._document = document;
+    this.ngZone.runOutsideAngular(() => {
+      merge(this.viewportRuler.change(150), this.update$)
+        .pipe(
+          filter(
+            () =>
+              this.loaded ||
+              (this.loaded = checkBootstrapStylesAreLoaded(
+                this._document,
+                this.elRef.nativeElement
+              ))
+          ),
+          map(() => {
+            const element = this.elRef.nativeElement;
+            let overflowSize;
+            if (this.isExpanded) {
+              overflowSize = element.scrollWidth - element.offsetWidth;
+            } else {
+              const clone = element.cloneNode(true) as HTMLElement;
+              clone.classList.add('navbar-expand');
+              const parent = element.parentElement;
+              if (parent) {
+                parent.appendChild(clone);
+                overflowSize = clone.scrollWidth - clone.offsetWidth;
+                parent.removeChild(clone);
+              }
+            }
+            return !overflowSize;
+          }),
+          distinctUntilChanged(),
+          takeUntil(this.onDestroy$)
+        )
+        .subscribe((isExpanded) => {
+          this.ngZone.run(() => {
+            this._isExpanded = isExpanded;
+            this.cdRef.markForCheck();
+          });
         });
-      });
     });
   }
 
   ngAfterContentInit() {
-    this._ngZone.runOutsideAngular(() => {
-      if (checkBootstrapStylesAreLoaded(this._elRef.nativeElement)) {
-        setTimeout(() => {
-          this.updateExpansion();
-        }, 0);
+    if (!this.platform.isBrowser) {
+      return;
+    }
+    this.ngZone.runOutsideAngular(() => {
+      this.loaded = checkBootstrapStylesAreLoaded(
+        this._document,
+        this.elRef.nativeElement
+      );
+      if (this.loaded) {
+        this.updateExpansion();
       } else {
         setTimeout(() => {
           this.ngAfterContentInit();
@@ -83,17 +101,24 @@ export class NgxNavbarDynamicExpandDirective
   }
 
   ngOnDestroy() {
-    this._update.complete();
-    this._onDestroy.next();
-    this._onDestroy.complete();
+    this.update$.complete();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   updateExpansion() {
-    this._update.next();
+    this.update$.next();
   }
 }
 
-function checkBootstrapStylesAreLoaded(element: Element): boolean {
-  const computedStyle = getComputedStyle(element);
+function checkBootstrapStylesAreLoaded(
+  document: Document,
+  element: Element
+): boolean {
+  const documentWindow = document.defaultView || window;
+  const computedStyle =
+    documentWindow && documentWindow.getComputedStyle
+      ? documentWindow.getComputedStyle(element)
+      : false;
   return computedStyle && computedStyle.whiteSpace === 'nowrap';
 }

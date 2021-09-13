@@ -8,4 +8,7 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  ngDoCheck(){
+    console.count()
+  }
 }

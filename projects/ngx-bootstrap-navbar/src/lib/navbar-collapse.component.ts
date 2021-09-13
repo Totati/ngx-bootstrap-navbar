@@ -35,12 +35,12 @@ export class NgxNavbarCollapseComponent {
   public isCollapsed = true;
   public isTransitioning = false;
 
-  constructor(private _cdr: ChangeDetectorRef) {}
+  constructor(private readonly cdRef: ChangeDetectorRef) {}
 
   toggle() {
     this.isTransitioning = true;
     this.isCollapsed = !this.isCollapsed;
-    this._cdr.markForCheck();
+    this.cdRef.markForCheck();
   }
 
   close() {
@@ -49,7 +49,7 @@ export class NgxNavbarCollapseComponent {
     }
     this.isTransitioning = true;
     this.isCollapsed = true;
-    this._cdr.markForCheck();
+    this.cdRef.markForCheck();
   }
 
   open() {
@@ -58,6 +58,6 @@ export class NgxNavbarCollapseComponent {
     }
     this.isTransitioning = true;
     this.isCollapsed = false;
-    this._cdr.markForCheck();
+    this.cdRef.markForCheck();
   }
 }

@@ -5,10 +5,12 @@
 [![npm downloads monthly](https://img.shields.io/npm/dm/ngx-bootstrap-navbar.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bootstrap-navbar)
 
 ## What does it do?
-Native Angular component and directive for [Bootstrap Navbar](https://getbootstrap.com/docs/4.3/components/navbar/) component. Uses bootstrap classes and Angular Animations for changing the navbars collapse
+Native Angular component and directive for [Bootstrap Navbar](https://getbootstrap.com/docs/5.1/components/navbar/) component. Uses bootstrap classes and Angular Animations for changing the navbars collapse
 
 ## Try it
-See it in action at [https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar](https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar)
+See it in action with:
+* Bootstrap 4 at [https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar](https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar)
+* Bootstrap 5 at [https://stackblitz.com/edit/angular-bootstrap5--dynamic-navbar](https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar)
 
 ## How to use it?
 Install `ngx-bootstrap-navbar` in your project:
@@ -48,19 +50,16 @@ If you want to dynamically detect that the navbar fits and can be expanded use t
 
 ### Compatibility
 
-* `@angular/core`: `^7.0.0 || ^8.0.0`,
-* `bootstrap`: `^4.0.0`,
-* `rxjs`: `^5.5.2 || ^6.0.0`
+* `@angular/core`: `^9.0.0 || ^10.0.0 || ^11.0.0`,
+* `bootstrap`: `^4.0.0 || ^5.0.0`,
 
 ## Development
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
-
 ### Library Build / NPM Package
-Run `ng build ngx-bootstrap-navbar --watch` to build the library and generate an NPM package. 
+Run `npm run build:lib` to build the library and generate an NPM package. 
 The build artifacts will be stored in the `dist/ngx-bootstrap-navbar` folder.
 
 ### Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run develop` for building the lib and watch it's changes, then run `npm run start` for a dev server. Navigate to `http://localhost:4203/`. The app will automatically reload if you change any of the source files.
 
