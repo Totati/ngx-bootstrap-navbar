@@ -23,7 +23,6 @@ import { distinctUntilChanged, map, takeUntil, filter } from 'rxjs/operators';
 export class NgxNavbarDynamicExpandDirective
   implements AfterContentInit, OnDestroy
 {
-  private readonly _document: Document;
   private readonly onDestroy$ = new Subject<void>();
   private readonly update$ = new Subject<void>();
   private loaded = false;
@@ -38,9 +37,8 @@ export class NgxNavbarDynamicExpandDirective
     private readonly ngZone: NgZone,
     private readonly cdRef: ChangeDetectorRef,
     private readonly platform: Platform,
-    @Inject(DOCUMENT) document: any
+    @Inject(DOCUMENT) private readonly _document: Document
   ) {
-    this._document = document;
     this.ngZone.runOutsideAngular(() => {
       merge(this.viewportRuler.change(150), this.update$)
         .pipe(
@@ -91,7 +89,7 @@ export class NgxNavbarDynamicExpandDirective
         this.elRef.nativeElement
       );
       if (this.loaded) {
-        this.updateExpansion();
+        this.update$.next();
       } else {
         setTimeout(() => {
           this.ngAfterContentInit();
@@ -104,10 +102,6 @@ export class NgxNavbarDynamicExpandDirective
     this.update$.complete();
     this.onDestroy$.next();
     this.onDestroy$.complete();
-  }
-
-  updateExpansion() {
-    this.update$.next();
   }
 }
 
