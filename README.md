@@ -9,8 +9,8 @@ Native Angular component and directive for [Bootstrap Navbar](https://getbootstr
 
 ## Try it
 See it in action with:
-* Bootstrap 4 at [https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar](https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar)
-* Bootstrap 5 at [https://stackblitz.com/edit/angular-bootstrap-5-dynamic-navbar](https://stackblitz.com/edit/angular-bootstrap-dynamic-navbar)
+* Bootstrap 4 at [https://stackblitz.com/edit/angular-13-bootstrap-4-dynamic-navbar](https://stackblitz.com/edit/angular-13-bootstrap-4-dynamic-navbar)
+* Bootstrap 5 at [https://stackblitz.com/edit/angular-13-bootstrap-dynamic-5-navbar](https://stackblitz.com/edit/angular-13-bootstrap-dynamic-5-navbar)
 
 ## How to use it?
 Install `ngx-bootstrap-navbar` in your project:
@@ -49,7 +49,7 @@ If you want to dynamically detect that the navbar fits and can be expanded use t
 
 ### Compatibility
 
-* `@angular/core`: `^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0`,
+* `@angular/core`: `^13.0.0`,
 * `bootstrap`: `^4.0.0 || ^5.0.0`,
 
 ## Development
