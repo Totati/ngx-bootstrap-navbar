@@ -1,14 +1,13 @@
-import { Component, ElementRef, ChangeDetectionStrategy } from '@angular/core';
-import { ViewportRuler } from '@angular/cdk/scrolling';
+import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  ngDoCheck(){
-    console.count()
+export class AppComponent implements DoCheck{
+  ngDoCheck() {
+    console.count();
   }
 }
