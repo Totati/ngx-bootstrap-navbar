@@ -1,46 +1,46 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  ViewEncapsulation
+  ElementRef,
+  inject,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ngxNavbarAnimations } from './navbar-animation';
 
 @Component({
   selector: 'ngx-navbar-collapse',
-  template: `
-    <ng-content></ng-content>
-  `,
+  template: ` <ng-content></ng-content> `,
   styles: [
     `
       .ngx-navbar-collapse.collapsing {
         height: auto;
       }
-    `
+    `,
   ],
   host: {
     class: 'navbar-collapse ngx-navbar-collapse',
-    '[class.collapse]': '!isTransitioning',
-    '[class.show]': '!isCollapsed && !isTransitioning',
-    '[class.collapsing]': 'isTransitioning',
     '[@slideState]': '!isCollapsed',
-    '(@slideState.done)': 'isTransitioning = false'
+    '(@slideState.done)': 'done()',
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [ngxNavbarAnimations.navbarSlide],
-  exportAs: 'ngxNavbarCollapse'
+  exportAs: 'ngxNavbarCollapse',
 })
 export class NgxNavbarCollapseComponent {
   public isCollapsed = true;
-  public isTransitioning = false;
+  private isTransitioning = false;
+  private readonly nativeElement =
+    inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
 
-  constructor(private readonly cdRef: ChangeDetectorRef) {}
+  constructor() {
+    this.updateClasses();
+  }
 
   toggle() {
     this.isTransitioning = true;
     this.isCollapsed = !this.isCollapsed;
-    this.cdRef.markForCheck();
+    this.updateClasses();
   }
 
   close() {
@@ -49,7 +49,7 @@ export class NgxNavbarCollapseComponent {
     }
     this.isTransitioning = true;
     this.isCollapsed = true;
-    this.cdRef.markForCheck();
+    this.updateClasses();
   }
 
   open() {
@@ -58,6 +58,19 @@ export class NgxNavbarCollapseComponent {
     }
     this.isTransitioning = true;
     this.isCollapsed = false;
-    this.cdRef.markForCheck();
+    this.updateClasses();
+  }
+
+  protected done() {
+    this.isTransitioning = false;
+    this.updateClasses();
+  }
+
+  protected updateClasses() {
+    const classList = this.nativeElement.classList;
+    const isTransitioning = this.isTransitioning;
+    classList.toggle('collapse', !isTransitioning);
+    classList.toggle('show', !this.isCollapsed && !isTransitioning);
+    classList.toggle('collapsing', isTransitioning);
   }
 }
