@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxNavbarCollapseComponent } from './navbar-collapse.component';
-import { NgxNavbarDynamicExpandDirective } from './navbar-dynamic-collapse.directive';
+import { NgxNavbarDynamicExpandDirective } from './navbar-dynamic-expand.directive';
 
 @NgModule({
   declarations: [NgxNavbarCollapseComponent, NgxNavbarDynamicExpandDirective],

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxNavbarDynamicExpandDirective } from './navbar-dynamic-collapse.directive';
+import { NgxNavbarDynamicExpandDirective } from './navbar-dynamic-expand.directive';
 
 describe('NgxNavbarDynamicExpandDirective', () => {
   let component: NgxNavbarDynamicExpandDirective;
