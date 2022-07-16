@@ -9,6 +9,7 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   Inject,
+  inject,
 } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { distinctUntilChanged, map, takeUntil, filter } from 'rxjs/operators';
@@ -25,6 +26,8 @@ export class NgxNavbarDynamicExpandDirective
 {
   private readonly onDestroy$ = new Subject<void>();
   private readonly update$ = new Subject<void>();
+  private readonly nativeElement =
+    inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
   private loaded = false;
   private _isExpanded = false;
   get isExpanded() {
@@ -32,26 +35,25 @@ export class NgxNavbarDynamicExpandDirective
   }
 
   constructor(
-    private readonly viewportRuler: ViewportRuler,
-    private readonly elRef: ElementRef<HTMLElement>,
     private readonly ngZone: NgZone,
-    private readonly cdRef: ChangeDetectorRef,
     private readonly platform: Platform,
-    @Inject(DOCUMENT) private readonly _document: Document
+    @Inject(DOCUMENT) private readonly _document: Document,
+    viewportRuler: ViewportRuler,
+    cdRef: ChangeDetectorRef
   ) {
-    this.ngZone.runOutsideAngular(() => {
-      merge(this.viewportRuler.change(150), this.update$)
+    ngZone.runOutsideAngular(() => {
+      merge(viewportRuler.change(150), this.update$)
         .pipe(
           filter(
             () =>
               this.loaded ||
               (this.loaded = checkBootstrapStylesAreLoaded(
-                this._document,
-                this.elRef.nativeElement
+                _document,
+                this.nativeElement
               ))
           ),
           map(() => {
-            const element = this.elRef.nativeElement;
+            const element = this.nativeElement;
             let overflowSize;
             if (this.isExpanded) {
               overflowSize = element.scrollWidth - element.offsetWidth;
@@ -71,9 +73,9 @@ export class NgxNavbarDynamicExpandDirective
           takeUntil(this.onDestroy$)
         )
         .subscribe((isExpanded) => {
-          this.ngZone.run(() => {
+          ngZone.run(() => {
             this._isExpanded = isExpanded;
-            this.cdRef.markForCheck();
+            cdRef.markForCheck();
           });
         });
     });
@@ -86,7 +88,7 @@ export class NgxNavbarDynamicExpandDirective
     this.ngZone.runOutsideAngular(() => {
       this.loaded = checkBootstrapStylesAreLoaded(
         this._document,
-        this.elRef.nativeElement
+        this.nativeElement
       );
       if (this.loaded) {
         this.update$.next();
