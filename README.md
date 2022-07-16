@@ -5,12 +5,12 @@
 [![npm downloads monthly](https://img.shields.io/npm/dm/ngx-bootstrap-navbar.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bootstrap-navbar)
 
 ## What does it do?
-Native Angular component and directive for [Bootstrap Navbar](https://getbootstrap.com/docs/5.1/components/navbar/) component. Uses bootstrap classes and Angular Animations for changing the navbars collapse
+Native Angular component and directive for [Bootstrap Navbar](https://getbootstrap.com/docs/5.1/components/navbar/) component. Uses bootstrap classes and Angular Animations for changing the navbars collapse.
 
 ## Try it
 See it in action with:
-* Bootstrap 4 at [https://stackblitz.com/edit/angular-13-bootstrap-4-dynamic-navbar](https://stackblitz.com/edit/angular-13-bootstrap-4-dynamic-navbar)
-* Bootstrap 5 at [https://stackblitz.com/edit/angular-13-bootstrap-dynamic-5-navbar](https://stackblitz.com/edit/angular-13-bootstrap-dynamic-5-navbar)
+* Bootstrap 4 at [https://stackblitz.com/edit/angular-14-bootstrap-4-dynamic-navbar](https://stackblitz.com/edit/angular-14-bootstrap-4-dynamic-navbar)
+* Bootstrap 5 at [https://stackblitz.com/edit/angular-14-bootstrap-5-dynamic-navbar](https://stackblitz.com/edit/angular-14-bootstrap-5-dynamic-navbar)
 
 ## How to use it?
 Install `ngx-bootstrap-navbar` in your project:
@@ -31,8 +31,8 @@ import { NgxNavbarModule } from 'ngx-bootstrap-navbar';
 export class AppModule {}
 ```
 
-Use the `ngx-navbar-collapse` component as the container of the .navbar-nav, it applies the basic bootstrap classes too.
-If you want to dynamically detect that the navbar fits and can be expanded use the `ngxNavbarDynamicExpand` directive on the navbar. It applies the .navbar and .text-nowrap classes.
+Use the `ngx-navbar-collapse` component as the container of the `.navbar-nav`, it applies the basic bootstrap classes too.
+If you want to dynamically detect that the navbar fits and can be expanded use the `ngxNavbarDynamicExpand` directive on the navbar. It applies the `.navbar` and `.text-nowrap` classes. The `.text-nowrap` class is crucial, at the begining it's used to detect that css files are loaded. 
 ```html
 <nav ngxNavbarDynamicExpand class="navbar-light bg-light">
   <button class="navbar-toggler" type="button" (click)="collapse.toggle()">
@@ -49,7 +49,8 @@ If you want to dynamically detect that the navbar fits and can be expanded use t
 
 ### Compatibility
 
-* `@angular/core`: `^13.0.0`,
+* `@angular/core`: `^14.0.0`,
+* `@angular/cdk`: `^14.0.0`,
 * `bootstrap`: `^4.0.0 || ^5.0.0`,
 
 ## Development
